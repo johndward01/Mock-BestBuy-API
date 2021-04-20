@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Mock_BestBuy_API
 {
-    public interface IDapperRepository
+    public interface IProductRepo
     {
         public IEnumerable<Product> GetProducts();
         public Product GetProduct(int id);

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +13,27 @@ namespace Mock_BestBuy_API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        private readonly IProductRepo _repo;
+
+        public ProductController(IProductRepo repo)
+        {
+            _repo = repo;
+        }
+
         // GET: api/<ProductController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public ActionResult <IEnumerable<Product>> GetAllProducts()
         {
-            return new string[] { "value1", "value2" };
+            var products = _repo.GetProducts();
+            return Ok(JsonConvert.SerializeObject(products));
         }
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult <Product> Get(int id)
         {
-            return "value";
+            var product = _repo.GetProduct(id);
+            return Ok(JsonConvert.SerializeObject(product));
         }
 
         // POST api/<ProductController>
