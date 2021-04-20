@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,32 +16,36 @@ namespace Mock_BestBuy_API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IDapperRepository _repo;
+        private readonly IProductRepo _repo;
 
-        public ProductController(IDapperRepository repo)
+        public ProductController(IProductRepo repo)
         {
             _repo = repo;
         }
 
         // GET: api/<ProductController>
         [HttpGet]
-        public IEnumerable<Product> Get()
+        public ActionResult <IEnumerable<Product>> GetAllProducts()
         {
-            return _repo.GetProducts();
+            var products = _repo.GetProducts();
+            return Ok(JsonConvert.SerializeObject(products));
         }
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public ActionResult <Product> Get(int id)
         {
-            return "value";
+            var product = _repo.GetProduct(id);
+            return Ok(JsonConvert.SerializeObject(product));
         }
 
         // POST api/<ProductController>
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            
         }
+       
 
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]

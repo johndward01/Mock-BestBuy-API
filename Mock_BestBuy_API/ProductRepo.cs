@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Mock_BestBuy_API
 {
-    public class DapperRepository : IDapperRepository
+    public class ProductRepo : IProductRepo
     {
         private readonly IDbConnection _connection;
 
-        public DapperRepository(IDbConnection connection)
+        public ProductRepo(IDbConnection connection)
         {
             _connection = connection;
         }

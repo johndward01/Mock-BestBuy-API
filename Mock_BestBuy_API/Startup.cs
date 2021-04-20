@@ -34,9 +34,10 @@ namespace Mock_BestBuy_API
                 conn.Open();
                 return conn;
             });
-            services.AddTransient<IDapperRepository, DapperRepository>();
-            services.AddCors(options =>
-            {
+
+            services.AddTransient<IProductRepo, ProductRepo>();
+            services.AddCors(options =>                         // CORS = Cross Open Resource Sharing   
+            {                                                   // Opens up the Api to not just limit the callers to a specific domain or individual URL
                 options.AddPolicy("AllowOrigin", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
         }
@@ -53,7 +54,7 @@ namespace Mock_BestBuy_API
 
             app.UseRouting();
 
-            app.UseCors("AllowedOrigin");
+            app.UseCors("AllowedOrigin");    //Added this in order to open up CORS
 
             app.UseAuthorization();
 
