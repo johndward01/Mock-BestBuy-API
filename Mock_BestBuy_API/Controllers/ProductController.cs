@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,11 +13,18 @@ namespace Mock_BestBuy_API.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
+        private readonly IDapperRepository _repo;
+
+        public ProductController(IDapperRepository repo)
+        {
+            _repo = repo;
+        }
+
         // GET: api/<ProductController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Product> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _repo.GetProducts();
         }
 
         // GET api/<ProductController>/5

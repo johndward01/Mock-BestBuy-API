@@ -6,8 +6,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,7 +28,17 @@ namespace Mock_BestBuy_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddTransient<IdBConnection>
+            services.AddScoped<IDbConnection>(s =>
+            {
+                IDbConnection conn = new MySqlConnection(Configuration.GetConnectionString("bestbuy"));
+                conn.Open();
+                return conn;
+            });
+            services.AddTransient<IDapperRepository, DapperRepository>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowOrigin", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +52,8 @@ namespace Mock_BestBuy_API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowedOrigin");
 
             app.UseAuthorization();
 
