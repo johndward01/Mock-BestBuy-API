@@ -63,6 +63,8 @@ namespace Mock_BestBuy_API.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var productToDelete = _repo.GetProduct(id);
+            _repo.DeleteProduct(productToDelete);
         }
     }
 }
