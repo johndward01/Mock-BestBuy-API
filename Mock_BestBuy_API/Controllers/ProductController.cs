@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.IO;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -43,7 +45,10 @@ namespace Mock_BestBuy_API.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
-            
+
+            //return Ok(value.ToString());
+            var product = JsonConvert.DeserializeObject<Product>(value);
+            _repo.InsertProduct(product);
         }
        
 
