@@ -23,19 +23,14 @@ namespace Mock_BestBuy_API
 
         public Product GetProduct(int id)
         {
-            return _connection.QuerySingle<Product>("SELECT * FROM bestbuy.products WHERE ProductID = @id;", new { id = id });
+            return _connection.QuerySingleOrDefault<Product>("SELECT * FROM bestbuy.products WHERE ProductID = @id;", new { id = id });
         }
 
         public void InsertProduct(Product prod)
         {
-            _connection.Execute("INSERT INTO bestbuy.products (Name, Price, CategoryID, OnSale, StockLevel) " +
-                "VALUES ( @name, @price, @categoryID, @onSale, @stockLevel);",
-                                                                              new { name = prod.Name,
-                                                                                    price = prod.Price,
-                                                                                    categoryID = prod.CategoryID,
-                                                                                    onSale = prod.OnSale,
-                                                                                    stockLevel = prod.StockLevel
-                                                                              });
+            _connection.Execute("INSERT INTO bestbuy.products (Name, Price, CategoryID, OnSale, StockLevel)" +
+                                " VALUES (@Name, @Price, @CategoryID, @OnSale, @StockLevel);",
+            new { name = prod.Name, price = prod.Price, categoryID = prod.CategoryID, onSale = prod.OnSale, stockLevel = prod.StockLevel });
         }
 
         public void UpdateProduct(Product prod)

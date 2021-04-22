@@ -37,31 +37,35 @@ namespace Mock_BestBuy_API.Controllers
         [HttpGet("{id}")]
         public ActionResult <Product> Get(int id)
         {
-            var product = _repo.GetProduct(id);
+            var product = _repo.GetProduct(id);            
             return Ok(JsonConvert.SerializeObject(product));
         }
 
         // POST api/<ProductController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post(Product product)
         {
-
-            //return Ok(value.ToString());
-            var product = JsonConvert.DeserializeObject<Product>(value);
+            var lastProductId = _repo.GetProducts().LastOrDefault().ProductID; // In order to Insert we need a ProductID
+            product.ProductID = ++lastProductId; // and since it defaults to 0 we must get the last 1 and then (++it)
             _repo.InsertProduct(product);
         }
        
 
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, Product product)
         {
+            //var productToUpdate = _repo.GetProduct(id);
+            product.ProductID = id;
+            _repo.UpdateProduct(product);
         }
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var productToDelete = _repo.GetProduct(id);
+            _repo.DeleteProduct(productToDelete);
         }
     }
 }
