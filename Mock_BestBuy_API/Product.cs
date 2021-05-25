@@ -18,6 +18,7 @@ namespace Mock_BestBuy_API
 
         [BindProperty]
         public int CategoryID { get; set; }
+
         public bool OnSale { get; set; } 
         public int StockLevel { get; set; }
 
