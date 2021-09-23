@@ -23,7 +23,7 @@ namespace Mock_BestBuy_API
             services.AddControllers();
             services.AddScoped<IDbConnection>(s =>
             {
-                IDbConnection conn = new MySqlConnection(Configuration.GetConnectionString("bestbuy"));
+                IDbConnection conn = new MySqlConnection(Configuration.GetConnectionString("DefaultConnection"));
                 conn.Open();
                 return conn;
             });
