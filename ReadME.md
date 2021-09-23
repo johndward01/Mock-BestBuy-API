@@ -5,4 +5,4 @@
 ### Step 3. Click the down arrow next to the green triangle (the run button) and choose the Kestral option (not IIS)
 ### Step 4. Once you have chosen the Kestral Server Option (it should say Mock_BestBuy_API next to the green triangle) run the API
 
-#### If you followed all the steps above, then you should see a browser full of JSON. 
+#### If you followed all the steps above, then you should see a browser full of JSON. Use Postman to help you query the API!
