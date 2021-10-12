@@ -1,7 +1,7 @@
 # How to run the API
 
 - Fork and clone the project onto your computer
-- Double click the solution file to open in Visual Studios Community (Visual Studios must already be installed!)
+- Double click the solution file to open in Visual Studios Community 
 - You must add an Appsettings.json file with your **connection string**
 - Once you've correctly added it and called it in your Startup.cs file, you are ready to run the app.
 - Click the down arrow next to the green triangle (the run button) and choose the Kestral option (not IIS)
