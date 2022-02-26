@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using MySql.Data.MySqlClient;
 using System.Data;
 
@@ -21,9 +22,14 @@ namespace Mock_BestBuy_API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mock Best Buy API", Version = "v1" });
+            });
+
             services.AddScoped<IDbConnection>(s =>
             {
-                IDbConnection conn = new MySqlConnection(Configuration.GetConnectionString("DefaultConnection"));
+                IDbConnection conn = new MySqlConnection(Configuration.GetConnectionString("bestbuy"));
                 conn.Open();
                 return conn;
             });
@@ -41,6 +47,8 @@ namespace Mock_BestBuy_API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
             app.UseHttpsRedirection();
