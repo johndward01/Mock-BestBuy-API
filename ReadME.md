@@ -9,7 +9,7 @@
 
 > If you followed all the steps above, then you should see a browser full of JSON. 
 
-### **Use Postman to help you query the API!**
+> **Use Postman to help you query the API!**
 
 ----
 
